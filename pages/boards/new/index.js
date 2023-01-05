@@ -13,20 +13,8 @@ import {
 } from "../../../styles/emotion";
 
 const CREATE_BOARD = gql`
-  mutation createBoard(
-    $writer: String
-    $password: String
-    $title: String!
-    $contents: String!
-  ) {
-    createBoard(
-      createBoardInput: {
-        writer: $writer
-        password: $password
-        title: $title
-        contents: $contents
-      }
-    ) {
+  mutation createBoard($createBoardInput: CreateBoardInput!) {
+    createBoard(createBoardInput: $createBoardInput) {
       _id
     }
   }
@@ -45,10 +33,12 @@ export default function New() {
     if (data) {
       const result = await createBoard({
         variables: {
-          writer: data.writer,
-          password: data.password,
-          title: data.title,
-          contents: data.contents,
+          createBoardInput: {
+            writer: data.writer,
+            password: data.password,
+            title: data.title,
+            contents: data.contents,
+          },
         },
       });
       console.log(result);
