@@ -43,7 +43,7 @@ export default function New() {
       },
     });
     alert("게시물 등록이 완료되었습니다.");
-    router.push(`/boards/detail/${result.data.createBoard._id}`);
+    router.push(`/boards/${result.data.createBoard._id}`);
   };
 
   const onError = (errors, e) => console.log(errors, e);

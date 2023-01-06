@@ -1,17 +1,25 @@
 import { gql, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
+
 import {
   Wrapper,
   Top,
+  Middle,
   ProfileIcon,
   Writer,
   Date,
   IconWrap,
   IconShare,
   IconLocation,
-} from "../../../../styles/boardsDetail";
+  ImgWrapper,
+  YoutubeWrapper,
+  LikeWrapper,
+  LikeIcon,
+  DisLikeIcon,
+} from "../../../styles/boardsDetail";
 import moment from "moment";
+import Image from "next/image";
 
 const FETCH_BOARD = gql`
   query fetchBoard($id: ID!) {
@@ -42,7 +50,6 @@ export default function Detail() {
       });
     }
   }, [data]);
-  console.log(data);
 
   return (
     <Wrapper>
@@ -57,13 +64,15 @@ export default function Detail() {
           <IconLocation />
         </IconWrap>
       </Top>
-      <>
+      <Middle>
         <h2>{detail?.title}</h2>
-        <div>{detail?.contents}</div>
-        <div>
-          <div>1920</div> <div>1920</div>
-        </div>
-      </>
+        {/* {detail?.img && <ImgWrapper></ImgWrapper>} */}
+        <div dangerouslySetInnerHTML={{ __html: detail?.contents }} />
+        {/* {detail?.youtubeUrl && <YoutubeWrapper></YoutubeWrapper>} */}
+        <LikeWrapper>
+          <LikeIcon>1920</LikeIcon> <DisLikeIcon>1920</DisLikeIcon>
+        </LikeWrapper>
+      </Middle>
     </Wrapper>
   );
 }
