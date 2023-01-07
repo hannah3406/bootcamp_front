@@ -1,14 +1,8 @@
-import { useMutation, gql } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import BoardWriteUI from "./BoardWrite.persenter";
+import {CREATE_BOARD} from "./BoardWrite.queries"
 
-const CREATE_BOARD = gql`
-  mutation createBoard($createBoardInput: CreateBoardInput!) {
-    createBoard(createBoardInput: $createBoardInput) {
-      _id
-    }
-  }
-`;
 
 export default function BoardWrite() {
   const [createBoard] = useMutation(CREATE_BOARD);

@@ -1,47 +1,30 @@
-import {
-  Wrapper,
-  Top,
-  Middle,
-  ProfileIcon,
-  Writer,
-  Date,
-  IconWrap,
-  IconShare,
-  IconLocation,
-  ImgWrapper,
-  YoutubeWrapper,
-  LikeWrapper,
-  LikeIcon,
-  DisLikeIcon,
-} from "../../../../../styles/boardsDetail";
+import * as S from "./BoardDetail.styles";
 import moment from "moment";
-import Image from "next/image";
 
 export default function BoardDetailUI(props) {
+  const {data}=props
   return (
-    <Wrapper>
-      <Top>
-        <ProfileIcon />
+    <S.Wrapper>
+      <S.Top>
+        <S.ProfileIcon />
         <div>
-          <Writer>{props.data?.writer}</Writer>
-          <Date>
-            Date : {moment(props.data?.updatedAt).format("YYYY-MM-DD")}
-          </Date>
+          <S.Writer>{data?.writer}</S.Writer>
+          <S.Date>
+            Date : {moment(data?.updatedAt).format("YYYY-MM-DD")}
+          </S.Date>
         </div>
-        <IconWrap>
-          <IconShare />
-          <IconLocation />
-        </IconWrap>
-      </Top>
-      <Middle>
-        <h2>{props.data?.title}</h2>
-        {/* {detail?.img && <ImgWrapper></ImgWrapper>} */}
-        <div dangerouslySetInnerHTML={{ __html: props.data?.contents }} />
-        {/* {detail?.youtubeUrl && <YoutubeWrapper></YoutubeWrapper>} */}
-        <LikeWrapper>
-          <LikeIcon>1920</LikeIcon> <DisLikeIcon>1920</DisLikeIcon>
-        </LikeWrapper>
-      </Middle>
-    </Wrapper>
+        <S.IconWrap>
+          <S.IconShare />
+          <S.IconLocation />
+        </S.IconWrap>
+      </S.Top>
+      <S.Middle>
+        <h2>{data?.title}</h2>
+        <div dangerouslySetInnerHTML={{ __html: data?.contents }} />
+        <S.LikeWrapper>
+          <S.LikeIcon>1920</S.LikeIcon> <S.DisLikeIcon>1920</S.DisLikeIcon>
+        </S.LikeWrapper>
+      </S.Middle>
+    </S.Wrapper>
   );
 }

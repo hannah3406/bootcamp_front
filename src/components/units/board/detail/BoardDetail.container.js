@@ -1,17 +1,8 @@
 import BoardDetailUI from "./BoardDetail.presenter";
-
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
-const FETCH_BOARD = gql`
-  query fetchBoard($id: ID!) {
-    fetchBoard(boardId: $id) {
-      writer
-      title
-      contents
-      updatedAt
-    }
-  }
-`;
+import { FETCH_BOARD } from "./BoardDetail.queries";
+
 
 export default function BoardDetail() {
   const router = useRouter();

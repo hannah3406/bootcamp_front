@@ -1,13 +1,4 @@
-import {
-  Wrapper,
-  Label,
-  Input,
-  Textarea,
-  ImgUploader,
-  InputRadio,
-  Submit,
-  Error,
-} from "../../../../../styles/boardsNew";
+import * as S from "./BoardWrite.styles";
 import { useForm } from "react-hook-form";
 
 export default function BoardWriteUI(props) {
@@ -16,14 +7,15 @@ export default function BoardWriteUI(props) {
     handleSubmit,
     formState: { errors },
   } = useForm({ mode: "onBlur" });
+  const {onSubmit,onError}=props
 
   return (
-    <Wrapper>
+    <S.Wrapper>
       <h2>게시물 등록</h2>
-      <form onSubmit={handleSubmit(props.onSubmit, props.onError)}>
-        <Label className="label_half first">
+      <form onSubmit={handleSubmit(onSubmit, onError)}>
+        <S.Label className="label_half first">
           작성자
-          <Input
+          <S.Input
             {...register("writer", {
               required: "닉네임을 입력해주세요.",
               // pattern: {
@@ -34,11 +26,11 @@ export default function BoardWriteUI(props) {
             })}
             placeholder="이름을 적어주세요"
           />
-          {<Error>{errors.writer?.message}</Error>}
-        </Label>
-        <Label className="label label_half">
+          {<S.Error>{errors.writer?.message}</S.Error>}
+        </S.Label>
+        <S.Label className="label label_half">
           비밀번호
-          <Input
+          <S.Input
             type="password"
             {...register("password", {
               required: "비밀번호를 입력해주세요.",
@@ -49,68 +41,68 @@ export default function BoardWriteUI(props) {
             })}
             placeholder="비밀번호를 입력해주세요."
           />
-          {<Error>{errors.password?.message}</Error>}
-        </Label>
-        <Label className="label">
+          {<S.Error>{errors.password?.message}</S.Error>}
+        </S.Label>
+        <S.Label className="label">
           제목
-          <Input
+          <S.Input
             {...register("title", {
               required: "제목을 작성해주세요.",
             })}
             placeholder="제목을 작성해주세요."
           />
-          {<Error>{errors.title?.message}</Error>}
-        </Label>
-        <Label className="label">
+          {<S.Error>{errors.title?.message}</S.Error>}
+        </S.Label>
+        <S.Label className="label">
           내용
-          <Textarea
+          <S.Textarea
             {...register("contents", {
               required: "내용을 작성해주세요.",
             })}
             placeholder="내용을 작성해주세요."
           />
-          {<Error>{errors.contents?.message}</Error>}
-        </Label>
-        <Label className="label">
+          {<S.Error>{errors.contents?.message}</S.Error>}
+        </S.Label>
+        <S.Label className="label">
           주소
           <div>
-            <Input className="postcode" {...register("postcode")} />
+            <S.Input className="postcode" {...register("postcode")} />
             <button>우편번호 검색</button>
           </div>
-          <Input
+          <S.Input
             style={{
               marginBottom: `30px !important`,
               marginTop: `0px !important`,
             }}
             {...register("address1")}
           />
-          <Input
+          <S.Input
             {...register("address2")}
             style={{
               marginBottom: `37px !important`,
               marginTop: `0px !important`,
             }}
           />
-        </Label>
-        <Label className="label">
+        </S.Label>
+        <S.Label className="label">
           유튜브
-          <Input {...register("youtube")} placeholder="링크를 복사해주세요." />
-        </Label>
-        <Label className="label">
+          <S.Input {...register("youtube")} placeholder="링크를 복사해주세요." />
+        </S.Label>
+        <S.Label className="label">
           사진 첨부
           <div style={{ marginTop: 16 }}>
             {[1, 2, 3].map((i) => {
               return (
-                <ImgUploader key={i} {...register(`imgSrc${i}`)}>
+                <S.ImgUploader key={i} {...register(`imgSrc${i}`)}>
                   <button>upload</button>
-                </ImgUploader>
+                </S.ImgUploader>
               );
             })}
           </div>
-        </Label>
-        <Label className="label">
+        </S.Label>
+        <S.Label className="label">
           메인 설정
-          <InputRadio style={{ marginTop: 16 }}>
+          <S.InputRadio style={{ marginTop: 16 }}>
             <input type="radio" {...register("mainset")} value="youtube" />
             유튜브
             <input
@@ -120,12 +112,12 @@ export default function BoardWriteUI(props) {
               value="photo"
             />
             사진
-          </InputRadio>
-        </Label>
+          </S.InputRadio>
+        </S.Label>
         <div style={{ textAlign: "center" }}>
-          <Submit type="submit" value="등록하기" />
+          <S.Submit type="submit" value="등록하기" />
         </div>
       </form>
-    </Wrapper>
+    </S.Wrapper>
   );
 }
