@@ -189,7 +189,7 @@ export const InputRadio = styled.div`
 export const Submit = styled.input`
   border: none;
   display: inline-block;
-  background: #ffd600;
+  background:${(props) => (props.activeColor ? '#ffd600 !important' : '#ddd')};
   font-family: "Noto Sans CJK KR";
   font-style: normal;
   font-weight: 500;

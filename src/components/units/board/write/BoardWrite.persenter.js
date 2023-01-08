@@ -5,10 +5,13 @@ export default function BoardWriteUI(props) {
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm({ mode: "onBlur" });
+    watch,
+    formState: { errors  },
+  } = useForm({ mode: "onChange",
+  defaultValues: { writer: null, password: null, title: null, contents: null }, });
   const {onSubmit,onError}=props
-
+  const isValid = !watch(["writer", "password","title","contents"]).includes(null);
+  console.log(isValid)
   return (
     <S.Wrapper>
       <h2>게시물 등록</h2>
@@ -115,7 +118,7 @@ export default function BoardWriteUI(props) {
           </S.InputRadio>
         </S.Label>
         <div style={{ textAlign: "center" }}>
-          <S.Submit type="submit" value="등록하기" />
+          <S.Submit type="submit" value="등록하기" activeColor={isValid} />
         </div>
       </form>
     </S.Wrapper>
