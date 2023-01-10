@@ -1,36 +1,30 @@
 import BoardListUI from "./BoardList.presenter";
 import { useRouter } from "next/router";
-import {useEffect,useState} from "react"
 import { useQuery } from "@apollo/client";
-import { FETCH_BOARDS } from "./BoardList.queries";
+import { FETCH_BOARDS, FETCH_BOARDS_COUNT } from "./BoardList.queries";
 import moment from "moment";
 
-
 export default function BoardList() {
+  const page = 0;
   const router = useRouter();
-  const { data } = useQuery(FETCH_BOARDS, {
+  const { data: list } = useQuery(FETCH_BOARDS, {
     variables: {
-      page: 1,
+      page: page + 1,
     },
   });
-  const [reverse,setReverse] = useState([])
-  const boardData = reverse?.map((i,idx)=>({
-    number:idx + 1,
-    writer:i.writer,
-    title:i.title,
-    id:i._id,
-    updatedAt:moment(i.updatedAt).format("YYYY-MM-DD")
-  }))
-  boardData.reverse()
+  const { data: count } = useQuery(FETCH_BOARDS_COUNT);
 
-  const onGoDetail =(event)=>{
-    router.push(`/boards/${event.target.id}`);
-  }
-  useEffect(() => {
-    if(data?.fetchBoards){
-      setReverse([...data.fetchBoards].reverse());  
-    }
-  }, [data?.fetchBoards]);
+  const boardData = list?.fetchBoards?.map((i, idx) => ({
+    number: count?.fetchBoardsCount - page * 10 - idx,
+    writer: i.writer,
+    title: i.title,
+    id: i._id,
+    updatedAt: moment(i.updatedAt).format("YYYY-MM-DD"),
+  }));
+
+  const onGoDetail = (id) => {
+    router.push(`/boards/${id}`);
+  };
 
   return <BoardListUI onGoDetail={onGoDetail} data={boardData && boardData} />;
 }

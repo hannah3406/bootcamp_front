@@ -5,10 +5,14 @@ import ICON_LIKE from "/public/icon/icon_like.png";
 import ICON_DISLIKE from "/public/icon/icon_dislike.png";
 
 export const Wrapper = styled.div`
+  text-align: center;
+`;
+export const DetailWrapper = styled.div`
   width: 1200px;
   padding: 60px 102px 80px;
   margin: 0 auto;
   margin-top: 100px;
+  margin-bottom: 100px;
   background: #ffffff;
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
   box-sizing: border-box;
