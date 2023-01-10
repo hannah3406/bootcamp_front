@@ -3,7 +3,7 @@ import moment from "moment";
 import Button from "../../../commons/Button";
 
 export default function BoardDetailUI(props) {
-  const { data, onGoList, onDeleteBoard } = props;
+  const { data, onGoList, onDeleteBoard, onGoEdit } = props;
   return (
     <S.Wrapper>
       <S.DetailWrapper>
@@ -29,7 +29,7 @@ export default function BoardDetailUI(props) {
         </S.Middle>
       </S.DetailWrapper>
       <Button text="목록으로" onClick={onGoList} />
-      <Button text="수정하기" />
+      <Button text="수정하기" onClick={onGoEdit} />
       <Button text="삭제하기" onClick={onDeleteBoard} />
     </S.Wrapper>
   );

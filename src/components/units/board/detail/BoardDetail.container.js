@@ -14,25 +14,29 @@ export default function BoardDetail() {
   const onGoList = () => {
     router.push(`/boards`);
   };
-  const onDeleteBoard = () => {
+  const onDeleteBoard = async () => {
     try {
-      deleteBoard({
+      await deleteBoard({
         variables: {
           id: router.query.id,
         },
       });
       alert("게시물이 삭제되었습니다.");
       router.push(`/boards`);
-    } catch {
+    } catch (e) {
       console.log(e);
       alert("오류 발생");
     }
+  };
+  const onGoEdit = () => {
+    router.push(`/boards/${router.query.id}/edit`);
   };
   return (
     <BoardDetailUI
       data={data && data.fetchBoard}
       onDeleteBoard={onDeleteBoard}
       onGoList={onGoList}
+      onGoEdit={onGoEdit}
     />
   );
 }

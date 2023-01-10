@@ -2,23 +2,33 @@ import * as S from "./BoardWrite.styles";
 import { useForm } from "react-hook-form";
 
 export default function BoardWriteUI(props) {
+  const { onSubmit, onError, isEdit, editData } = props;
+  const f = ";sdfsfsd";
   const {
     register,
     handleSubmit,
     watch,
-    formState: { errors  },
-  } = useForm({ mode: "onChange",
-  defaultValues: { writer: null, password: null, title: null, contents: null }, });
-  const {onSubmit,onError}=props
-  const isValid = !watch(["writer", "password","title","contents"]).includes(null);
-  console.log(isValid)
+    formState: { errors },
+  } = useForm({
+    mode: "onChange",
+    defaultValues: {
+      writer: editData?.writer ? editData?.writer : "",
+      password: "",
+      title: editData?.title ? editData?.title : "",
+      contents: editData?.contents ? editData?.contents : "",
+    },
+  });
+  const isValid = !watch(["writer", "password", "title", "contents"]).includes(
+    ""
+  );
   return (
     <S.Wrapper>
-      <h2>게시물 등록</h2>
+      <h2>{isEdit ? "게시물 수정" : "게시물 등록"}</h2>
       <form onSubmit={handleSubmit(onSubmit, onError)}>
         <S.Label className="label_half first">
           작성자
           <S.Input
+            ref={register}
             {...register("writer", {
               required: "닉네임을 입력해주세요.",
               // pattern: {
@@ -89,7 +99,10 @@ export default function BoardWriteUI(props) {
         </S.Label>
         <S.Label className="label">
           유튜브
-          <S.Input {...register("youtube")} placeholder="링크를 복사해주세요." />
+          <S.Input
+            {...register("youtube")}
+            placeholder="링크를 복사해주세요."
+          />
         </S.Label>
         <S.Label className="label">
           사진 첨부
@@ -118,7 +131,11 @@ export default function BoardWriteUI(props) {
           </S.InputRadio>
         </S.Label>
         <div style={{ textAlign: "center" }}>
-          <S.Submit type="submit" value="등록하기" activeColor={isValid} />
+          <S.Submit
+            type="submit"
+            value={isEdit ? "수정하기" : "등록하기"}
+            activeColor={isValid}
+          />
         </div>
       </form>
     </S.Wrapper>

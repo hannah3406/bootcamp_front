@@ -26,5 +26,9 @@ export default function BoardList() {
     router.push(`/boards/${id}`);
   };
 
-  return <BoardListUI onGoDetail={onGoDetail} data={boardData && boardData} />;
+  return (
+    !!boardData && (
+      <BoardListUI onGoDetail={onGoDetail} data={boardData && boardData} />
+    )
+  );
 }
