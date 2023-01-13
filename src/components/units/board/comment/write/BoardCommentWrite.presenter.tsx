@@ -1,7 +1,5 @@
 import * as S from "./BoardCommentWrite.styles";
 import { Form, Input, Rate } from "antd";
-import { useEffect, useState } from "react";
-import { Dispatch, SetStateAction } from "react";
 import { ICommentListEl } from "../list/BoardCommentList.container";
 import { FetchResult } from "@apollo/client";
 
@@ -21,12 +19,6 @@ interface IBoardCommentWriteProps {
 export default function BoardCommentWriteUI(props: IBoardCommentWriteProps) {
   const { onSubmitValue, isEdit, editData } = props;
 
-  const [propsRating, setPropsRating] = useState<number>(
-    !!editData ? editData.rating : 0
-  );
-  useEffect(() => {
-    if (!!editData?.rating) setPropsRating(editData?.rating);
-  }, [editData]);
   return (
     <S.Wrapper isEdit={isEdit}>
       {!isEdit && <S.Title>댓글</S.Title>}
@@ -35,6 +27,7 @@ export default function BoardCommentWriteUI(props: IBoardCommentWriteProps) {
         initialValues={{
           contents: !!editData ? editData.contents : "",
           writer: !!editData ? editData.writer : "",
+          rating: !!editData ? editData.rating : 0,
         }}
       >
         <Form.Item
@@ -57,15 +50,9 @@ export default function BoardCommentWriteUI(props: IBoardCommentWriteProps) {
           name="rating"
           style={{
             display: "inline-block",
-            marginBottom: "0 !important",
-            verticalAlign: "unset",
           }}
         >
-          <Rate
-            onChange={setPropsRating}
-            defaultValue={propsRating}
-            allowHalf
-          />
+          <Rate allowHalf />
         </Form.Item>
         <div style={{ position: "relative" }}>
           <Form.Item name="contents">
@@ -81,10 +68,13 @@ export default function BoardCommentWriteUI(props: IBoardCommentWriteProps) {
               position: "absolute",
               bottom: 0,
               right: 0,
-              marginBottom: "0 !important",
             }}
           >
-            <S.Submitbtn type="submit" value="등록하기" />
+            <S.Submitbtn
+              isEdit={isEdit}
+              type="submit"
+              value={isEdit ? "수정하기" : "등록하기"}
+            />
           </Form.Item>
         </div>
       </Form>

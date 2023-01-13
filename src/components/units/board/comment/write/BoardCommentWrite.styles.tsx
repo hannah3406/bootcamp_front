@@ -11,6 +11,10 @@ box-sizing: border-box;
     props.isEdit ? "0px;" : "87px;"}
   border-top:${(props: IBoardCommentWriteUIProps) =>
     props.isEdit ? "0px;" : "1px solid #bdbdbd;"}
+  .ant-form-item{
+    margin-bottom:0px !important;
+    vertical-align:unset !important;
+  }
   .ant-input {
     box-sizing: border-box;
     width: 180px;
@@ -80,7 +84,8 @@ export const Title = styled.div`
 
 export const Submitbtn = styled.input`
   height: 52px;
-  background: #000000;
+  background:${(props: IBoardCommentWriteUIProps) =>
+    props.isEdit ? "#FFD600;" : "#000;"}
   font-family: "Noto Sans CJK KR";
   font-style: normal;
   font-weight: 500;
@@ -91,4 +96,5 @@ export const Submitbtn = styled.input`
   box-sizing: border-box;
   padding: 0 19px;
   cursor: pointer;
+  border:none !important;
 `;

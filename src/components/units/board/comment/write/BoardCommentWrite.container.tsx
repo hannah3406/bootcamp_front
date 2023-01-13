@@ -19,34 +19,33 @@ interface ImyVariables {
 
 export default function BoardCommentWrite(props: IBoardCommentWriteProps) {
   const { isEdit, editData } = props;
-
+  const page = 0;
   const [createBoardComment] = useMutation(CREATE_BOARD_COMMENT);
   const [updateBoardComment] = useMutation(UPDATE_BOARD_COMMENT);
+
   const router = useRouter();
 
   const onSubmitValue = async (values: ICommentListEl) => {
-    // e.preventDefault();
     const writer = values.writer;
     const password = values.password;
     const rating = values.rating;
     const contents = values.contents;
 
-    try {
-      if (!writer) return alert("작성자 빈칸을 채워주세요.");
-      if (!password) return alert("비밀번호 빈칸을 채워주세요.");
-      if (!rating) return alert("별점 빈칸을 채워주세요.");
-      if (!contents) return alert("내용 빈칸을 채워주세요.");
-      if (isEdit) {
-        const myVariables: ImyVariables = {};
-        if (rating !== editData.rating) myVariables.rating = rating;
-        if (contents !== editData.contents) myVariables.contents = contents;
-        return await updateBoardComment({
+    if (!writer) return alert("작성자 빈칸을 채워주세요.");
+    if (!password) return alert("비밀번호 빈칸을 채워주세요.");
+    if (!rating) return alert("별점 빈칸을 채워주세요.");
+    if (!contents) return alert("내용 빈칸을 채워주세요.");
+
+    if (!isEdit) {
+      try {
+        await createBoardComment({
           variables: {
-            updateBoardCommentInput: {
-              rating: myVariables.rating,
-              contents: myVariables.contents,
+            createBoardCommentInput: {
+              writer,
+              password,
+              rating,
+              contents,
             },
-            password: password,
             id: router.query.id,
           },
           refetchQueries: [
@@ -58,32 +57,47 @@ export default function BoardCommentWrite(props: IBoardCommentWriteProps) {
             },
           ],
         });
+        alert("댓글 등록이 완료되었습니다.");
+        location.reload();
+      } catch (e) {
+        console.log(e);
+        return alert("댓글 작성 오류가 발생하였습니다.");
       }
-      await createBoardComment({
-        variables: {
-          createBoardCommentInput: {
-            writer,
-            password,
-            rating,
-            contents,
-          },
-          id: router.query.id,
-        },
-        refetchQueries: [
-          {
-            query: FETCH_BOARD_COMMENTS,
-            variables: {
-              id: router.query.id,
+    }
+
+    if (isEdit) {
+      const myVariables: ImyVariables = {};
+      if (rating !== editData.rating) myVariables.rating = rating;
+      if (contents !== editData.contents) myVariables.contents = contents;
+      try {
+        await updateBoardComment({
+          variables: {
+            updateBoardCommentInput: {
+              rating: myVariables.rating,
+              contents: myVariables.contents,
             },
+            password: password,
+            id: editData._id,
           },
-        ],
-      });
-      alert("댓글 등록이 완료되었습니다.");
-    } catch (e) {
-      console.log(e);
-      return alert("댓글 작성 오류가 발생하였습니다.");
+          refetchQueries: [
+            {
+              query: FETCH_BOARD_COMMENTS,
+              variables: {
+                page: page + 1,
+                id: router.query.id,
+              },
+            },
+          ],
+        });
+        alert("댓글 수정이 완료되었습니다.");
+        location.reload();
+      } catch (e) {
+        console.log(e);
+        return alert("댓글 수정 오류가 발생하였습니다.");
+      }
     }
   };
+
   return (
     <BoardCommentWriteUI
       onSubmitValue={onSubmitValue}

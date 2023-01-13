@@ -29,8 +29,8 @@ export const UPDATE_BOARD_COMMENT = gql`
     $password: String
     $id: ID!
   ) {
-    updateBoard(
-      updateBoardCommentInput: $updateBoardInput
+    updateBoardComment(
+      updateBoardCommentInput: $updateBoardCommentInput
       password: $password
       boardCommentId: $id
     ) {
@@ -96,5 +96,11 @@ export const FETCH_BOARDS_COUNT = gql`
 export const DELETE_BOARD = gql`
   mutation deleteBoard($id: ID!) {
     deleteBoard(boardId: $id)
+  }
+`;
+
+export const DELETE_BBOARD_COMMENT = gql`
+  mutation deleteBoardComment($password: String, $id: ID!) {
+    deleteBoardComment(password: $password, boardCommentId: $id)
   }
 `;

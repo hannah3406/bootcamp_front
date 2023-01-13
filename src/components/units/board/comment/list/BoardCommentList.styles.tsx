@@ -1,6 +1,9 @@
 import styled from "@emotion/styled";
+import ICON_EDIT from "/public/icon/icon_edit.png";
+import ICON_CANCEL from "/public/icon/icon_cancel.png";
 
 export const Wrapper = styled.div`
+  position: relative;
   padding: 20px 0;
   border-bottom: 1px solid #bdbdbd;
   display: flex;
@@ -43,4 +46,26 @@ export const Date = styled.div`
   font-size: 12px;
   line-height: 18px;
   color: #bdbdbd;
+`;
+export const ButtonWrap = styled.div`
+  position: absolute;
+  top: 20px;
+  right: 0;
+`;
+export const ButtonEdit = styled.div`
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  margin-right: 5px;
+  background-size: 100% 100%;
+  background-image: url(${ICON_EDIT});
+  cursor: pointer;
+`;
+export const ButtonCancle = styled.div`
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-size: 100% 100%;
+  background-image: url(${ICON_CANCEL});
+  cursor: pointer;
 `;
