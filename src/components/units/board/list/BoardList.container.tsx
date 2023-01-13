@@ -1,7 +1,10 @@
 import BoardListUI from "./BoardList.presenter";
 import { useRouter } from "next/router";
 import { useQuery } from "@apollo/client";
-import { FETCH_BOARDS, FETCH_BOARDS_COUNT } from "./BoardList.queries";
+import {
+  FETCH_BOARDS,
+  FETCH_BOARDS_COUNT,
+} from "../../../../queries/Board.queries";
 import moment from "moment";
 
 export default function BoardList() {

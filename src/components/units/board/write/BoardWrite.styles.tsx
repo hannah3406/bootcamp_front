@@ -1,5 +1,7 @@
 import styled from "@emotion/styled";
-
+interface IBoardWriteUIProps {
+  activeColor: Boolean;
+}
 export const Wrapper = styled.div`
   width: 1200px;
   padding: 60px 102px 100px;
@@ -189,7 +191,8 @@ export const InputRadio = styled.div`
 export const Submit = styled.input`
   border: none;
   display: inline-block;
-  background:${(props) => (props.activeColor ? '#ffd600 !important' : '#ddd')};
+  background: ${(props: IBoardWriteUIProps) =>
+    props.activeColor ? "#ffd600 !important" : "#ddd"};
   font-family: "Noto Sans CJK KR";
   font-style: normal;
   font-weight: 500;

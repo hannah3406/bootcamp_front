@@ -1,16 +1,27 @@
 import BoardDetailUI from "./BoardDetail.presenter";
-import { useQuery, useMutation } from "@apollo/client";
+import { useMutation, useLazyQuery } from "@apollo/client";
 import { useRouter } from "next/router";
-import { FETCH_BOARD, DELETE_BOARD } from "./BoardDetail.queries";
+import {
+  FETCH_BOARD,
+  FETCH_BOARDS,
+  DELETE_BOARD,
+} from "../../../../queries/Board.queries";
+import { useEffect } from "react";
 
 export default function BoardDetail() {
   const router = useRouter();
   const [deleteBoard] = useMutation(DELETE_BOARD);
-  const { data } = useQuery(FETCH_BOARD, {
+
+  const [fetchBoard, { data }] = useLazyQuery(FETCH_BOARD, {
     variables: {
       id: router.query.id,
     },
   });
+  useEffect(() => {
+    if (!!router.query.id) {
+      fetchBoard();
+    }
+  }, [router.query.id]);
   const onGoList = () => {
     router.push(`/boards`);
   };
@@ -20,6 +31,11 @@ export default function BoardDetail() {
         variables: {
           id: router.query.id,
         },
+        refetchQueries: [
+          {
+            query: FETCH_BOARDS,
+          },
+        ],
       });
       alert("게시물이 삭제되었습니다.");
       router.push(`/boards`);
@@ -31,6 +47,7 @@ export default function BoardDetail() {
   const onGoEdit = () => {
     router.push(`/boards/${router.query.id}/edit`);
   };
+
   return (
     <BoardDetailUI
       data={data && data.fetchBoard}

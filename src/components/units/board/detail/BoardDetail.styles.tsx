@@ -8,9 +8,7 @@ export const Wrapper = styled.div`
   text-align: center;
 `;
 export const DetailWrapper = styled.div`
-  width: 1200px;
   padding: 60px 102px 80px;
-  margin: 0 auto;
   margin-top: 100px;
   margin-bottom: 100px;
   background: #ffffff;

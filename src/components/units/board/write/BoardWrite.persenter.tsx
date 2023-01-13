@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 
 export default function BoardWriteUI(props) {
   const { onSubmit, onError, isEdit, editData } = props;
-  const f = ";sdfsfsd";
   const {
     register,
     handleSubmit,
@@ -18,6 +17,7 @@ export default function BoardWriteUI(props) {
       contents: editData?.contents ? editData?.contents : "",
     },
   });
+
   const isValid = !watch(["writer", "password", "title", "contents"]).includes(
     ""
   );
@@ -76,7 +76,7 @@ export default function BoardWriteUI(props) {
           />
           {<S.Error>{errors.contents?.message}</S.Error>}
         </S.Label>
-        <S.Label className="label">
+        {/* <S.Label className="label">
           주소
           <div>
             <S.Input className="postcode" {...register("postcode")} />
@@ -129,7 +129,7 @@ export default function BoardWriteUI(props) {
             />
             사진
           </S.InputRadio>
-        </S.Label>
+        </S.Label> */}
         <div style={{ textAlign: "center" }}>
           <S.Submit
             type="submit"

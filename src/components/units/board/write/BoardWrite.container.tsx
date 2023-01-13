@@ -1,9 +1,12 @@
 import { useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
 import BoardWriteUI from "./BoardWrite.persenter";
-import { CREATE_BOARD, UPDATE_BOARD } from "./BoardWrite.queries";
+import { CREATE_BOARD, UPDATE_BOARD } from "../../../../queries/Board.queries";
 
+interface ImyVariables {
+  title?: string;
+  contents?: string;
+}
 export default function BoardWrite(props) {
   const { isEdit, editData } = props;
   const [createBoard] = useMutation(CREATE_BOARD);
@@ -28,10 +31,10 @@ export default function BoardWrite(props) {
     }
     if (isEdit) {
       // key 와 value 가 같은 경우, writer : data.writer 가 아니라 writer 이라고만 써도 무방하다. (shorthand-property)
-      const myVariables = {};
+      const myVariables: ImyVariables = {};
       if (data.title !== editData.title) myVariables.title = data.title;
       if (data.contents !== editData.contents)
-        myVariables.writer = data.contents;
+        myVariables.contents = data.contents;
 
       const result = await updateBoard({
         variables: {
