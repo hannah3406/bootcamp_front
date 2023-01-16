@@ -7,17 +7,22 @@ import {
 } from "../../../../queries/Board.queries";
 import moment from "moment";
 import { useEffect, useState } from "react";
+import { IQuery } from "../../../../commons/types/generated/types";
+import { IBoardListData } from "../../../../types/Board.types";
 
 export default function BoardList() {
   const page = 0;
   const router = useRouter();
-  const [boardList, setBoardList] = useState<any>([]);
-  const { data: list, loading: listLoading } = useQuery(FETCH_BOARDS, {
+  const [boardList, setBoardList] = useState<IBoardListData[]>([]);
+  const { data: list, loading: listLoading } = useQuery<
+    Pick<IQuery, "fetchBoards">
+  >(FETCH_BOARDS, {
     variables: {
       page: page + 1,
     },
   });
-  const { data: count, loading: countLoading } = useQuery(FETCH_BOARDS_COUNT);
+  const { data: count, loading: countLoading } =
+    useQuery<Pick<IQuery, "fetchBoardsCount">>(FETCH_BOARDS_COUNT);
 
   useEffect(() => {
     if (!countLoading && !listLoading) {
@@ -34,7 +39,7 @@ export default function BoardList() {
     }
   }, [countLoading, listLoading, list, count]);
 
-  const onGoDetail = (id) => {
+  const onGoDetail = (id: string) => {
     router.push(`/boards/${id}`);
   };
 

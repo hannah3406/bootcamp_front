@@ -12,10 +12,12 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
   } = useForm({
     mode: "onChange",
     defaultValues: {
-      writer: editData?.writer ? editData?.writer : "",
+      writer: editData?.fetchBoard?.writer ? editData?.fetchBoard?.writer : "",
       password: "",
-      title: editData?.title ? editData?.title : "",
-      contents: editData?.contents ? editData?.contents : "",
+      title: editData?.fetchBoard?.title ? editData?.fetchBoard?.title : "",
+      contents: editData?.fetchBoard?.contents
+        ? editData?.fetchBoard?.contents
+        : "",
     },
   });
 
@@ -32,11 +34,6 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
             ref={register}
             {...register("writer", {
               required: "닉네임을 입력해주세요.",
-              // pattern: {
-              //   value:
-              //     /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i,
-              //   message: "@을 포함한 이메일 형식으로 작성해주세요",
-              // },
             })}
             placeholder="이름을 적어주세요"
           />

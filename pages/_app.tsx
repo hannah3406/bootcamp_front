@@ -1,6 +1,7 @@
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
+import { AppProps } from "next/app";
 
-export default function App({ Component, pageProps }) {
+export default function App({ Component, pageProps }: AppProps) {
   const client = new ApolloClient({
     // uri: "https://cors-anywhere.herokuapp.com/http://backendonline.codebootcamp.co.kr/graphql",
     uri: "https://backendonline.codebootcamp.co.kr/graphql",

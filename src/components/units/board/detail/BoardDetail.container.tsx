@@ -7,16 +7,21 @@ import {
   DELETE_BOARD,
 } from "../../../../queries/Board.queries";
 import { useEffect } from "react";
+import { IMutation, IQuery } from "../../../../commons/types/generated/types";
 
 export default function BoardDetail() {
   const router = useRouter();
-  const [deleteBoard] = useMutation(DELETE_BOARD);
+  const [deleteBoard] =
+    useMutation<Pick<IMutation, "deleteBoard">>(DELETE_BOARD);
 
-  const [fetchBoard, { data }] = useLazyQuery(FETCH_BOARD, {
-    variables: {
-      id: router.query.id,
-    },
-  });
+  const [fetchBoard, { data }] = useLazyQuery<Pick<IQuery, "fetchBoard">>(
+    FETCH_BOARD,
+    {
+      variables: {
+        id: router.query.id,
+      },
+    }
+  );
   useEffect(() => {
     if (!!router.query.id) {
       fetchBoard();

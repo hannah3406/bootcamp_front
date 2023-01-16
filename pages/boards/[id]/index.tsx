@@ -5,6 +5,7 @@ import BoardCommentWrite from "../../../src/components/units/board/comment/write
 import BoardDetail from "../../../src/components/units/board/detail/BoardDetail.container";
 import { useQuery } from "@apollo/client";
 import { FETCH_BOARD_COMMENTS } from "../../../src/queries/Board.queries";
+import { IQuery } from "../../../src/commons/types/generated/types";
 
 const Wrapper = styled.div`
   width: 1200px;
@@ -13,21 +14,20 @@ const Wrapper = styled.div`
 export default function Detail() {
   const page = 0;
   const router = useRouter();
-  const { data: list, refetch } = useQuery(FETCH_BOARD_COMMENTS, {
-    variables: {
-      page: page + 1,
-      id: router.query.id,
-    },
-  });
-  // useEffect(() => {
-  //   if (!!router.query.id) {
-  //     fetchBoardComments();
-  //   }
-  // }, [router.query.id]);
+  const { data: list, refetch } = useQuery<Pick<IQuery, "fetchBoardComments">>(
+    FETCH_BOARD_COMMENTS,
+    {
+      variables: {
+        page: page + 1,
+        id: router.query.id,
+      },
+    }
+  );
+
   return (
     <Wrapper>
       <BoardDetail />
-      <BoardCommentWrite refetch={refetch} />
+      <BoardCommentWrite refetch={refetch} isEdit={false} />
       <BoardCommentList
         list={list && list.fetchBoardComments}
         refetch={refetch}

@@ -8,20 +8,24 @@ import {
   UPDATE_BOARD_COMMENT,
 } from "../../../../../queries/Board.queries";
 import {
+  IBoardCommentWriteCreateData,
   IBoardCommentWriteProps,
   ImyVariables,
 } from "../../../../../types/Board.types";
+import { IMutation } from "../../../../../commons/types/generated/types";
 
 export default function BoardCommentWrite(props: IBoardCommentWriteProps) {
   const { isEdit, editData, refetch } = props;
   const [form] = useForm();
   const page = 0;
-  const [createBoardComment] = useMutation(CREATE_BOARD_COMMENT);
-  const [updateBoardComment] = useMutation(UPDATE_BOARD_COMMENT);
+  const [createBoardComment] =
+    useMutation<Pick<IMutation, "createBoardComment">>(CREATE_BOARD_COMMENT);
+  const [updateBoardComment] =
+    useMutation<Pick<IMutation, "updateBoardComment">>(UPDATE_BOARD_COMMENT);
 
   const router = useRouter();
 
-  const onSubmitValue = async (values: any) => {
+  const onSubmitValue = async (values: IBoardCommentWriteCreateData) => {
     const writer = values.writer;
     const password = values.password;
     const rating = values.rating;

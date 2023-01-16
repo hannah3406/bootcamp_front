@@ -6,14 +6,20 @@ import {
   FETCH_BOARD_COMMENTS,
 } from "../../../../../queries/Board.queries";
 import { useState } from "react";
-import { IBoardCommentListProps } from "../../../../../types/Board.types";
+import {
+  IBoardCommentListProps,
+  IFetchBoardComment,
+} from "../../../../../types/Board.types";
+import { IMutation } from "../../../../../commons/types/generated/types";
 
 export default function BoardCommentList(props: IBoardCommentListProps) {
   const { list, refetch } = props;
 
   const page = 0;
   const router = useRouter();
-  const [deleteBoardComment] = useMutation(DELETE_BBOARD_COMMENT);
+  const [deleteBoardComment] = useMutation<
+    Pick<IMutation, "deleteBoardComment">
+  >(DELETE_BBOARD_COMMENT);
 
   const onDeleteBoard = async (deleteData: {
     id: string;
@@ -52,18 +58,20 @@ export default function BoardCommentList(props: IBoardCommentListProps) {
   };
 
   return (
-    !!list &&
-    list.map((i: any) => (
-      <BoardCommentListUI
-        key={i._id}
-        data={i}
-        onDeleteBoard={onDeleteBoard}
-        onChangeValue={onChangeValue}
-        passwordValue={passwordValue}
-        isEdit={isEdit}
-        refetch={refetch}
-        onClickEdit={onClickEdit}
-      />
-    ))
+    <>
+      {!!list &&
+        list.map((i: IFetchBoardComment) => (
+          <BoardCommentListUI
+            key={i._id}
+            data={i}
+            onDeleteBoard={onDeleteBoard}
+            onChangeValue={onChangeValue}
+            passwordValue={passwordValue}
+            isEdit={isEdit}
+            refetch={refetch}
+            onClickEdit={onClickEdit}
+          />
+        ))}
+    </>
   );
 }
