@@ -1,20 +1,11 @@
 import * as S from "./BoardCommentList.styles";
 import { Button, Input, Popover, Rate } from "antd";
 import moment from "moment";
-import { ICommentListEl } from "./BoardCommentList.container";
+
 import BoardCommentWrite from "../write/BoardCommentWrite.container";
-interface IBoardCommentListProps {
-  data: ICommentListEl;
-  onDeleteBoard: (deleteData: {
-    id: string;
-    password: string;
-  }) => Promise<void>;
-  passwordValue: string;
-  isEdit: boolean;
-  onChangeValue: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onClickEdit: () => void;
-}
-export default function BoardCommentListUI(props: IBoardCommentListProps) {
+import { IBoardCommentListUIProps } from "../../../../../types/Board.types";
+
+export default function BoardCommentListUI(props: IBoardCommentListUIProps) {
   const {
     data,
     onDeleteBoard,
@@ -22,6 +13,7 @@ export default function BoardCommentListUI(props: IBoardCommentListProps) {
     onClickEdit,
     passwordValue,
     isEdit,
+    refetch,
   } = props;
 
   const content = (
@@ -38,7 +30,7 @@ export default function BoardCommentListUI(props: IBoardCommentListProps) {
   return (
     <>
       {isEdit && !!data ? (
-        <BoardCommentWrite isEdit={isEdit} editData={data} />
+        <BoardCommentWrite isEdit={isEdit} editData={data} refetch={refetch} />
       ) : (
         <S.Wrapper>
           <S.ProfileImage />

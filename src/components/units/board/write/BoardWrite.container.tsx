@@ -2,18 +2,15 @@ import { useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import BoardWriteUI from "./BoardWrite.persenter";
 import { CREATE_BOARD, UPDATE_BOARD } from "../../../../queries/Board.queries";
+import { IBoardWriteMyVariables } from "../../../../types/Board.types";
 
-interface ImyVariables {
-  title?: string;
-  contents?: string;
-}
 export default function BoardWrite(props) {
   const { isEdit, editData } = props;
   const [createBoard] = useMutation(CREATE_BOARD);
   const [updateBoard] = useMutation(UPDATE_BOARD);
   const router = useRouter();
 
-  const onSubmit = async (data, editData) => {
+  const onSubmit = async (data: any, editData: any) => {
     if (!isEdit) {
       // key 와 value 가 같은 경우, writer : data.writer 가 아니라 writer 이라고만 써도 무방하다. (shorthand-property)
       const result = await createBoard({
@@ -31,7 +28,7 @@ export default function BoardWrite(props) {
     }
     if (isEdit) {
       // key 와 value 가 같은 경우, writer : data.writer 가 아니라 writer 이라고만 써도 무방하다. (shorthand-property)
-      const myVariables: ImyVariables = {};
+      const myVariables: IBoardWriteMyVariables = {};
       if (data.title !== editData.title) myVariables.title = data.title;
       if (data.contents !== editData.contents)
         myVariables.contents = data.contents;

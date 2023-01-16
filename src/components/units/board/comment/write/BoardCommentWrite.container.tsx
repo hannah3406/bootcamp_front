@@ -1,31 +1,27 @@
 import BoardCommentWriteUI from "./BoardCommentWrite.presenter";
 import { useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
+import { useForm } from "antd/es/form/Form";
 import {
   CREATE_BOARD_COMMENT,
   FETCH_BOARD_COMMENTS,
   UPDATE_BOARD_COMMENT,
 } from "../../../../../queries/Board.queries";
-import { ICommentListEl } from "../list/BoardCommentList.container";
-
-interface IBoardCommentWriteProps {
-  isEdit?: boolean;
-  editData?: ICommentListEl;
-}
-interface ImyVariables {
-  rating?: number;
-  contents?: string;
-}
+import {
+  IBoardCommentWriteProps,
+  ImyVariables,
+} from "../../../../../types/Board.types";
 
 export default function BoardCommentWrite(props: IBoardCommentWriteProps) {
-  const { isEdit, editData } = props;
+  const { isEdit, editData, refetch } = props;
+  const [form] = useForm();
   const page = 0;
   const [createBoardComment] = useMutation(CREATE_BOARD_COMMENT);
   const [updateBoardComment] = useMutation(UPDATE_BOARD_COMMENT);
 
   const router = useRouter();
 
-  const onSubmitValue = async (values: ICommentListEl) => {
+  const onSubmitValue = async (values: any) => {
     const writer = values.writer;
     const password = values.password;
     const rating = values.rating;
@@ -58,7 +54,8 @@ export default function BoardCommentWrite(props: IBoardCommentWriteProps) {
           ],
         });
         alert("댓글 등록이 완료되었습니다.");
-        location.reload();
+        refetch();
+        // location.reload();
       } catch (e) {
         console.log(e);
         return alert("댓글 작성 오류가 발생하였습니다.");
@@ -90,7 +87,7 @@ export default function BoardCommentWrite(props: IBoardCommentWriteProps) {
           ],
         });
         alert("댓글 수정이 완료되었습니다.");
-        location.reload();
+        refetch();
       } catch (e) {
         console.log(e);
         return alert("댓글 수정 오류가 발생하였습니다.");
@@ -102,6 +99,7 @@ export default function BoardCommentWrite(props: IBoardCommentWriteProps) {
     <BoardCommentWriteUI
       onSubmitValue={onSubmitValue}
       isEdit={isEdit}
+      form={form}
       editData={!!editData && editData}
     />
   );

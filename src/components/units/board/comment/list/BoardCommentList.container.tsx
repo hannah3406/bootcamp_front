@@ -1,38 +1,20 @@
 import BoardCommentListUI from "./BoardCommentList.presenter";
 import { useRouter } from "next/router";
-import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import {
   DELETE_BBOARD_COMMENT,
   FETCH_BOARD_COMMENTS,
 } from "../../../../../queries/Board.queries";
-import { Key, MouseEventHandler, useEffect, useState } from "react";
-export interface ICommentListEl {
-  password?: any;
-  __typename?: string;
-  _id?: string;
-  contents: string;
-  writer: string;
-  rating: number;
-  updatedAt?: string;
-}
-export default function BoardCommentList() {
+import { useState } from "react";
+import { IBoardCommentListProps } from "../../../../../types/Board.types";
+
+export default function BoardCommentList(props: IBoardCommentListProps) {
+  const { list, refetch } = props;
+
   const page = 0;
   const router = useRouter();
   const [deleteBoardComment] = useMutation(DELETE_BBOARD_COMMENT);
-  const [fetchBoardComments, { data: list }] = useLazyQuery(
-    FETCH_BOARD_COMMENTS,
-    {
-      variables: {
-        page: page + 1,
-        id: router.query.id,
-      },
-    }
-  );
-  useEffect(() => {
-    if (!!router.query.id) {
-      fetchBoardComments();
-    }
-  }, [router.query.id]);
+
   const onDeleteBoard = async (deleteData: {
     id: string;
     password: string;
@@ -54,6 +36,7 @@ export default function BoardCommentList() {
         ],
       });
       alert("댓글이 삭제되었습니다.");
+      refetch();
     } catch (e) {
       console.log(e);
       alert("오류 발생");
@@ -70,7 +53,7 @@ export default function BoardCommentList() {
 
   return (
     !!list &&
-    list.fetchBoardComments.map((i: ICommentListEl, idx: Key) => (
+    list.map((i: any) => (
       <BoardCommentListUI
         key={i._id}
         data={i}
@@ -78,6 +61,7 @@ export default function BoardCommentList() {
         onChangeValue={onChangeValue}
         passwordValue={passwordValue}
         isEdit={isEdit}
+        refetch={refetch}
         onClickEdit={onClickEdit}
       />
     ))

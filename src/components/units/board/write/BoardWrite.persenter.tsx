@@ -1,7 +1,8 @@
 import * as S from "./BoardWrite.styles";
 import { useForm } from "react-hook-form";
+import { IBoardWriteUIProps } from "../../../../types/Board.types";
 
-export default function BoardWriteUI(props) {
+export default function BoardWriteUI(props: IBoardWriteUIProps) {
   const { onSubmit, onError, isEdit, editData } = props;
   const {
     register,

@@ -1,29 +1,21 @@
 import * as S from "./BoardCommentWrite.styles";
 import { Form, Input, Rate } from "antd";
-import { ICommentListEl } from "../list/BoardCommentList.container";
-import { FetchResult } from "@apollo/client";
+import { IBoardCommentWriteUIProps } from "../../../../../types/Board.types";
 
 const { TextArea } = Input;
 
-interface IBoardCommentWriteProps {
-  onSubmitValue: (
-    values: ICommentListEl
-  ) => Promise<void | FetchResult<
-    any,
-    Record<string, any>,
-    Record<string, any>
-  >>;
-  isEdit: boolean;
-  editData?: ICommentListEl;
-}
-export default function BoardCommentWriteUI(props: IBoardCommentWriteProps) {
-  const { onSubmitValue, isEdit, editData } = props;
+export default function BoardCommentWriteUI(props: IBoardCommentWriteUIProps) {
+  const { onSubmitValue, isEdit, editData, form } = props;
 
   return (
     <S.Wrapper isEdit={isEdit}>
       {!isEdit && <S.Title>댓글</S.Title>}
       <Form
-        onFinish={onSubmitValue}
+        form={form}
+        onFinish={(values) => {
+          onSubmitValue(values);
+          form.resetFields();
+        }}
         initialValues={{
           contents: !!editData ? editData.contents : "",
           writer: !!editData ? editData.writer : "",

@@ -1,6 +1,7 @@
+import { IBoardListUIProps } from "../../../../types/Board.types";
 import * as S from "./BoardList.styles";
 
-export default function BoardListUI(props) {
+export default function BoardListUI(props: IBoardListUIProps) {
   const { data, onGoDetail } = props;
 
   return (
