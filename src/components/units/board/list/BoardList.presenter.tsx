@@ -13,13 +13,9 @@ export default function BoardListUI(props: IBoardListUIProps) {
         <S.Date>날짜</S.Date>
       </S.Header>
       {data?.map((list) => (
-        <S.Body
-          id={list.id}
-          key={list.number}
-          onClick={() => onGoDetail(list.id)}
-        >
+        <S.Body id={list.id} key={list.number}>
           <S.Number>{list.number}</S.Number>
-          <S.Title>{list.title}</S.Title>
+          <S.Title onClick={() => onGoDetail(list.id)}>{list.title}</S.Title>
           <S.Writer>{list.writer}</S.Writer>
           <S.Date>{list.updatedAt}</S.Date>
         </S.Body>

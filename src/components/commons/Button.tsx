@@ -1,6 +1,11 @@
 import styled from "@emotion/styled";
 
-export default function Button(props) {
+interface IButtonProps {
+  onClick: () => void;
+  text: string;
+}
+
+export default function Button(props: IButtonProps) {
   const { onClick, text } = props;
   return <BtnStyled onClick={onClick}>{text}</BtnStyled>;
 }

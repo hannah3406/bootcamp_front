@@ -1,5 +1,5 @@
 import { gql } from "@apollo/client";
-//mutation
+// mutation
 export const CREATE_BOARD = gql`
   mutation createBoard($createBoardInput: CreateBoardInput!) {
     createBoard(createBoardInput: $createBoardInput) {
@@ -53,7 +53,7 @@ export const CREATE_BOARD_COMMENT = gql`
   }
 `;
 
-//fetch
+// fetch
 export const FETCH_BOARD = gql`
   query fetchBoard($id: ID!) {
     fetchBoard(boardId: $id) {
@@ -61,6 +61,11 @@ export const FETCH_BOARD = gql`
       title
       contents
       updatedAt
+      boardAddress {
+        zipcode
+        address
+        addressDetail
+      }
     }
   }
 `;

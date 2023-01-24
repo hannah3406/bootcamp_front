@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
 import BoardCommentList from "../../../src/components/units/board/comment/list/BoardCommentList.container";
@@ -28,10 +29,7 @@ export default function Detail() {
     <Wrapper>
       <BoardDetail />
       <BoardCommentWrite refetch={refetch} isEdit={false} />
-      <BoardCommentList
-        list={list && list.fetchBoardComments}
-        refetch={refetch}
-      />
+      <BoardCommentList list={list?.fetchBoardComments} refetch={refetch} />
     </Wrapper>
   );
 }

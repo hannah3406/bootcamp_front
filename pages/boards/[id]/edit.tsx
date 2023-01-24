@@ -1,5 +1,4 @@
-import { gql } from "@apollo/client";
-import { useQuery } from "@apollo/client";
+import { gql, useQuery } from "@apollo/client";
 import BoardWrite from "../../../src/components/units/board/write/BoardWrite.container";
 import { useRouter } from "next/router";
 import { IQuery } from "../../../src/commons/types/generated/types";
@@ -10,6 +9,12 @@ export const FETCH_BOARD = gql`
       writer
       title
       contents
+      youtubeUrl
+      boardAddress {
+        zipcode
+        address
+        addressDetail
+      }
     }
   }
 `;

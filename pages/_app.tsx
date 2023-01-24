@@ -1,5 +1,5 @@
-import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import { AppProps } from "next/app";
+import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 
 export default function App({ Component, pageProps }: AppProps) {
   const client = new ApolloClient({
@@ -14,4 +14,4 @@ export default function App({ Component, pageProps }: AppProps) {
     </ApolloProvider>
   );
 }
-//페이지가 아님! 모든 페이지에 공통 적용되는 설정들
+// 페이지가 아님! 모든 페이지에 공통 적용되는 설정들

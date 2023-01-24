@@ -55,7 +55,7 @@ export default function BoardDetail() {
 
   return (
     <BoardDetailUI
-      data={data && data.fetchBoard}
+      data={data && data}
       onDeleteBoard={onDeleteBoard}
       onGoList={onGoList}
       onGoEdit={onGoEdit}

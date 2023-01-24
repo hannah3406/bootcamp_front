@@ -57,6 +57,10 @@ export default function BoardCommentList(props: IBoardCommentListProps) {
     setIsEdit(true);
   };
 
+  const onShowWriter = (writer: string) => {
+    alert(`${writer}님이 작성한 댓글입니다.`);
+  };
+
   return (
     <>
       {!!list &&
@@ -69,6 +73,7 @@ export default function BoardCommentList(props: IBoardCommentListProps) {
             passwordValue={passwordValue}
             isEdit={isEdit}
             refetch={refetch}
+            onShowWriter={onShowWriter}
             onClickEdit={onClickEdit}
           />
         ))}

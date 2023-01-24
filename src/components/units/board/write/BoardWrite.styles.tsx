@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 interface IBoardWriteUIProps {
-  activeColor: Boolean;
+  activeColor: boolean;
 }
 export const Wrapper = styled.div`
   width: 1200px;
@@ -30,6 +30,7 @@ export const Wrapper = styled.div`
     background: #000;
     color: #fff;
     border: none;
+    cursor: pointer;
   }
 `;
 export const Label = styled.div`
@@ -70,7 +71,7 @@ export const Input = styled.input`
     font-size: 16px;
     line-height: 24px;
   }
-  &.postcode {
+  &.zipcode {
     width: 77px;
     margin-right: 16px;
     margin-bottom: 16px;
