@@ -47,9 +47,7 @@ export default function BoardCommentWrite(props: IBoardCommentWriteProps) {
           },
         });
         alert("댓글 등록이 완료되었습니다.");
-
         refetch();
-        // location.reload();
       } catch (e) {
         console.log(e);
         return alert("댓글 작성 오류가 발생하였습니다.");
@@ -71,11 +69,10 @@ export default function BoardCommentWrite(props: IBoardCommentWriteProps) {
             id: editData._id,
           },
         });
-        alert("댓글 수정이 완료되었습니다.");
         refetch();
+        alert("댓글 수정이 완료되었습니다.");
       } catch (e) {
         console.log(e);
-
         return alert("댓글 수정 오류가 발생하였습니다.");
       }
     }

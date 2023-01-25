@@ -14,7 +14,6 @@ export default function BoardCommentListUI(props: IBoardCommentListUIProps) {
     passwordValue,
     isEdit,
     refetch,
-    onShowWriter,
   } = props;
 
   const content = (
@@ -33,7 +32,7 @@ export default function BoardCommentListUI(props: IBoardCommentListUIProps) {
       {isEdit && !!data ? (
         <BoardCommentWrite isEdit={isEdit} editData={data} refetch={refetch} />
       ) : (
-        <S.Wrapper onClick={() => onShowWriter(data.writer)}>
+        <S.Wrapper>
           <S.ProfileImage />
           <div>
             <S.UserName>

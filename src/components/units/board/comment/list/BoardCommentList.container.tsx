@@ -5,7 +5,7 @@ import {
   DELETE_BBOARD_COMMENT,
   FETCH_BOARD_COMMENTS,
 } from "../../../../../queries/Board.queries";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   IBoardCommentListProps,
   IFetchBoardComment,
@@ -58,10 +58,9 @@ export default function BoardCommentList(props: IBoardCommentListProps) {
   const onClickEdit = (id: string) => {
     setIsEdit(id);
   };
-  const onShowWriter = (writer: string) => {
-    alert(`${writer}님이 작성한 댓글입니다.`);
-  };
-
+  useEffect(() => {
+    setIsEdit(null);
+  }, [list]);
   return (
     <>
       {!!list &&
@@ -74,7 +73,6 @@ export default function BoardCommentList(props: IBoardCommentListProps) {
             passwordValue={passwordValue}
             isEdit={isEdit === i._id}
             refetch={refetch}
-            onShowWriter={onShowWriter}
             onClickEdit={onClickEdit}
           />
         ))}

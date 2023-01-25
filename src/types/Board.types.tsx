@@ -88,7 +88,6 @@ export interface IBoardCommentListUIProps {
   onChangeValue: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onClickEdit: (id: string) => void;
   refetch: () => void;
-  onShowWriter: (writer: string) => void;
 }
 
 // boardCommentwrite
