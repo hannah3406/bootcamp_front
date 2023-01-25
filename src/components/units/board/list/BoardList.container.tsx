@@ -9,6 +9,7 @@ import moment from "moment";
 import { useEffect, useState } from "react";
 import { IQuery } from "../../../../commons/types/generated/types";
 import { IBoardListData } from "../../../../types/Board.types";
+import * as S from "./BoardList.styles";
 
 export default function BoardList() {
   const page = 0;
@@ -42,10 +43,16 @@ export default function BoardList() {
   const onGoDetail = (id: string) => {
     router.push(`/boards/${id}`);
   };
+  const onGoNew = () => {
+    router.push(`/boards/new`);
+  };
 
   return (
-    !!boardList && (
-      <BoardListUI onGoDetail={onGoDetail} data={boardList && boardList} />
-    )
+    <>
+      {!!boardList && (
+        <BoardListUI onGoDetail={onGoDetail} data={boardList && boardList} />
+      )}
+      <S.GoNewButton onClick={onGoNew}>게시물 등록하기</S.GoNewButton>
+    </>
   );
 }

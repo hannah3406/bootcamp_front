@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import ICON_NEW from "/public/icon/icon_new.png";
 
 export const BoardListWrapper = styled.div`
   width: 70%;
@@ -54,5 +55,24 @@ export const Body = styled.div`
   &:hover {
     color: #ffd600;
     transition: 0.3s;
+  }
+`;
+export const GoNewButton = styled.div`
+  display: inline-block;
+  padding: 14px 16px 14px 48px;
+  position: relative;
+  border: 1px solid #f2f2f2;
+  border-radius: 10px;
+  cursor: pointer;
+  &:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 16px;
+    width: 24px;
+    height: 24px;
+    background-size: contain%;
+    background-image: url(${ICON_NEW});
   }
 `;

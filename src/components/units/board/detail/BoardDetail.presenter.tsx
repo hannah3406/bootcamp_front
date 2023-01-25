@@ -2,17 +2,24 @@ import * as S from "./BoardDetail.styles";
 import moment from "moment";
 import Button from "../../../commons/Button";
 import { IBoardDetailUIProps } from "../../../../types/Board.types";
-import { Popover } from "antd";
+import { Tooltip } from "antd";
 
 export default function BoardDetailUI(props: IBoardDetailUIProps) {
-  const { data, onGoList, onDeleteBoard, onGoEdit } = props;
-  console.log(data?.fetchBoard);
+  const {
+    data,
+    onGoList,
+    onDeleteBoard,
+    onGoEdit,
+    onLikeBoard,
+    onDisLikeBoard,
+  } = props;
+
   return (
     <S.Wrapper>
       <S.DetailWrapper>
         <S.Top>
           <S.ProfileIcon />
-          <div>
+          <div style={{ textAlign: "left" }}>
             <S.Writer>{data?.fetchBoard?.writer}</S.Writer>
             <S.Date>
               Date : {moment(data?.fetchBoard?.updatedAt).format("YYYY-MM-DD")}
@@ -20,16 +27,17 @@ export default function BoardDetailUI(props: IBoardDetailUIProps) {
           </div>
           <S.IconWrap>
             <S.IconShare />
-            <Popover
-              content={
-                <div>
+            {/* <Tooltip
+              placement="topRight"
+              title={
+                <div style={{ padding: "8px 16px" }}>
                   <p>{data?.fetchBoard?.boardAddress?.address}</p>
                   <p>{data?.fetchBoard?.boardAddress?.addressDetail}</p>
                 </div>
               }
             >
               <S.IconLocation />
-            </Popover>
+            </Tooltip> */}
           </S.IconWrap>
         </S.Top>
         <S.Middle>
@@ -38,7 +46,12 @@ export default function BoardDetailUI(props: IBoardDetailUIProps) {
             dangerouslySetInnerHTML={{ __html: data?.fetchBoard?.contents }}
           />
           <S.LikeWrapper>
-            <S.LikeIcon>1920</S.LikeIcon> <S.DisLikeIcon>1920</S.DisLikeIcon>
+            <S.LikeIcon onClick={onLikeBoard}>
+              {data?.fetchBoard?.likeCount}
+            </S.LikeIcon>
+            <S.DisLikeIcon onClick={onDisLikeBoard}>
+              {data?.fetchBoard?.dislikeCount}
+            </S.DisLikeIcon>
           </S.LikeWrapper>
         </S.Middle>
       </S.DetailWrapper>

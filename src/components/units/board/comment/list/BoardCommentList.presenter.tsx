@@ -46,7 +46,7 @@ export default function BoardCommentListUI(props: IBoardCommentListUIProps) {
             <S.Date>{moment(data.updatedAt).format("YYYY-MM-DD")}</S.Date>
           </div>
           <S.ButtonWrap>
-            <S.ButtonEdit onClick={onClickEdit} />
+            <S.ButtonEdit onClick={() => onClickEdit(data._id)} />
 
             <Popover content={content} title="Title" trigger="click">
               <S.ButtonCancle />

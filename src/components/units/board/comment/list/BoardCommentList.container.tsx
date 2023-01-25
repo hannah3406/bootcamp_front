@@ -51,12 +51,13 @@ export default function BoardCommentList(props: IBoardCommentListProps) {
   const onChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPasswordValue(e.target.value);
   };
-  const [isEdit, setIsEdit] = useState<boolean>(false);
-  const [passwordValue, setPasswordValue] = useState<string>("");
-  const onClickEdit = () => {
-    setIsEdit(true);
-  };
 
+  const [passwordValue, setPasswordValue] = useState<string>("");
+
+  const [isEdit, setIsEdit] = useState<string>(null);
+  const onClickEdit = (id: string) => {
+    setIsEdit(id);
+  };
   const onShowWriter = (writer: string) => {
     alert(`${writer}님이 작성한 댓글입니다.`);
   };
@@ -71,7 +72,7 @@ export default function BoardCommentList(props: IBoardCommentListProps) {
             onDeleteBoard={onDeleteBoard}
             onChangeValue={onChangeValue}
             passwordValue={passwordValue}
-            isEdit={isEdit}
+            isEdit={isEdit === i._id}
             refetch={refetch}
             onShowWriter={onShowWriter}
             onClickEdit={onClickEdit}

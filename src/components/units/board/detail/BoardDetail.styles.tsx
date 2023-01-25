@@ -3,6 +3,7 @@ import ICON_SHARE from "/public/icon/icon_share.png";
 import ICON_LOCATION from "/public/icon/icon_location.png";
 import ICON_LIKE from "/public/icon/icon_like.png";
 import ICON_DISLIKE from "/public/icon/icon_dislike.png";
+import { Popover } from "antd";
 
 export const Wrapper = styled.div`
   text-align: center;
@@ -112,6 +113,7 @@ export const LikeIcon = styled.div`
   color: #ffd600;
   margin-right: 40px;
   padding-top: 22px;
+  cursor: pointer;
   &:after {
     content: "";
     width: 20px;
@@ -134,6 +136,7 @@ export const DisLikeIcon = styled.div`
   text-align: center;
   color: #828282;
   padding-top: 22px;
+  cursor: pointer;
   &:after {
     content: "";
     width: 20px;
@@ -144,5 +147,18 @@ export const DisLikeIcon = styled.div`
     transform: translateX(-50%);
     background: url(${ICON_DISLIKE}) no-repeat center center;
     background-size: 100% 100%;
+  }
+`;
+export const LocationInfo = styled(Popover)`
+  .ant-popover-inner {
+    background-color: #ffd600 !important;
+    padding: 8px 16px;
+    color: #fff;
+    font-family: "Noto Sans CJK KR";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: right;
   }
 `;

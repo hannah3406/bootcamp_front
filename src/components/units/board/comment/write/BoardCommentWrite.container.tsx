@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import { useForm } from "antd/es/form/Form";
 import {
   CREATE_BOARD_COMMENT,
-  FETCH_BOARD_COMMENTS,
   UPDATE_BOARD_COMMENT,
 } from "../../../../../queries/Board.queries";
 import {
@@ -48,16 +47,9 @@ export default function BoardCommentWrite(props: IBoardCommentWriteProps) {
             },
             id: router.query.id,
           },
-          refetchQueries: [
-            {
-              query: FETCH_BOARD_COMMENTS,
-              variables: {
-                id: router.query.id,
-              },
-            },
-          ],
         });
         alert("댓글 등록이 완료되었습니다.");
+
         refetch();
         // location.reload();
       } catch (e) {
@@ -77,23 +69,15 @@ export default function BoardCommentWrite(props: IBoardCommentWriteProps) {
               rating: myVariables.rating,
               contents: myVariables.contents,
             },
-            password: password,
+            password,
             id: editData._id,
           },
-          refetchQueries: [
-            {
-              query: FETCH_BOARD_COMMENTS,
-              variables: {
-                page: page + 1,
-                id: router.query.id,
-              },
-            },
-          ],
         });
         alert("댓글 수정이 완료되었습니다.");
         refetch();
       } catch (e) {
         console.log(e);
+
         return alert("댓글 수정 오류가 발생하였습니다.");
       }
     }

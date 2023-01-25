@@ -86,7 +86,7 @@ export interface IBoardCommentListUIProps {
   passwordValue: string;
   isEdit: boolean;
   onChangeValue: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onClickEdit: () => void;
+  onClickEdit: (id: string) => void;
   refetch: () => void;
   onShowWriter: (writer: string) => void;
 }
@@ -114,4 +114,6 @@ export interface IBoardDetailUIProps {
   onGoList: () => void;
   onGoEdit: () => void;
   data: Pick<IQuery, "fetchBoard">;
+  onLikeBoard: () => Promise<void>;
+  onDisLikeBoard: () => Promise<void>;
 }
