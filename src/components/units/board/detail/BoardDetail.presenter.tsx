@@ -27,7 +27,7 @@ export default function BoardDetailUI(props: IBoardDetailUIProps) {
           </div>
           <S.IconWrap>
             <S.IconShare />
-            {/* <Tooltip
+            <Tooltip
               placement="topRight"
               title={
                 <div style={{ padding: "8px 16px" }}>
@@ -37,7 +37,7 @@ export default function BoardDetailUI(props: IBoardDetailUIProps) {
               }
             >
               <S.IconLocation />
-            </Tooltip> */}
+            </Tooltip>
           </S.IconWrap>
         </S.Top>
         <S.Middle>

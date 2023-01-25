@@ -5,8 +5,8 @@ import { IBoardCommentWriteUIProps } from "../../../../../types/Board.types";
 const { TextArea } = Input;
 
 export default function BoardCommentWriteUI(props: IBoardCommentWriteUIProps) {
-  const { onSubmitValue, isEdit, editData, form } = props;
-
+  const { onSubmitValue, isEdit, editData } = props;
+  const [form] = Form.useForm();
   return (
     <S.Wrapper isEdit={isEdit}>
       {!isEdit && <S.Title>댓글</S.Title>}

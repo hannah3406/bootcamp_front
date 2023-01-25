@@ -105,7 +105,6 @@ export interface IBoardCommentWriteUIProps {
   onSubmitValue: (values: IBoardCommentWriteCreateData) => Promise<void>;
   isEdit: boolean;
   editData?: IFetchBoardComment;
-  form: any;
 }
 
 // 게시글 상세

@@ -1,7 +1,6 @@
 import BoardCommentWriteUI from "./BoardCommentWrite.presenter";
 import { useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
-import { useForm } from "antd/es/form/Form";
 import {
   CREATE_BOARD_COMMENT,
   UPDATE_BOARD_COMMENT,
@@ -15,7 +14,6 @@ import { IMutation } from "../../../../../commons/types/generated/types";
 
 export default function BoardCommentWrite(props: IBoardCommentWriteProps) {
   const { isEdit, editData, refetch } = props;
-  const [form] = useForm();
   const page = 0;
   const [createBoardComment] =
     useMutation<Pick<IMutation, "createBoardComment">>(CREATE_BOARD_COMMENT);
@@ -87,7 +85,6 @@ export default function BoardCommentWrite(props: IBoardCommentWriteProps) {
     <BoardCommentWriteUI
       onSubmitValue={onSubmitValue}
       isEdit={isEdit}
-      form={form}
       editData={!!editData && editData}
     />
   );
