@@ -33,6 +33,7 @@ export interface IBoardCommentWriteCreateData {
 export interface IBoardListUIProps {
   data: IBoardListData[];
   onGoDetail: (id: string) => void;
+  onGoNew: () => void;
 }
 
 // boardWrite

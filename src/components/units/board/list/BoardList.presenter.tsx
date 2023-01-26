@@ -2,7 +2,7 @@ import { IBoardListUIProps } from "../../../../types/Board.types";
 import * as S from "./BoardList.styles";
 
 export default function BoardListUI(props: IBoardListUIProps) {
-  const { data, onGoDetail } = props;
+  const { data, onGoDetail, onGoNew } = props;
 
   return (
     <S.BoardListWrapper>
@@ -20,6 +20,7 @@ export default function BoardListUI(props: IBoardListUIProps) {
           <S.Date>{list.updatedAt}</S.Date>
         </S.Body>
       ))}
+      <S.GoNewButton onClick={onGoNew}>게시물 등록하기</S.GoNewButton>
     </S.BoardListWrapper>
   );
 }

@@ -10,35 +10,56 @@ import { useEffect, useState } from "react";
 import { IQuery } from "../../../../commons/types/generated/types";
 import { IBoardListData } from "../../../../types/Board.types";
 import * as S from "./BoardList.styles";
+import PaginationComponents from "../../../commons/Pagination";
 
 export default function BoardList() {
-  const page = 0;
   const router = useRouter();
   const [boardList, setBoardList] = useState<IBoardListData[]>([]);
-  const { data: list, loading: listLoading } = useQuery<
-    Pick<IQuery, "fetchBoards">
-  >(FETCH_BOARDS, {
+  const [lastPage, setLastPage] = useState<number>(0);
+  const [totalCount, setTotalCount] = useState<number>(0);
+  const [currentPage, setCurrentPage] = useState<number>(0);
+
+  const {
+    data: list,
+    loading: listLoading,
+    refetch,
+  } = useQuery<Pick<IQuery, "fetchBoards">>(FETCH_BOARDS, {
     variables: {
-      page: page + 1,
+      page: currentPage,
     },
   });
   const { data: count, loading: countLoading } =
     useQuery<Pick<IQuery, "fetchBoardsCount">>(FETCH_BOARDS_COUNT);
 
   useEffect(() => {
-    if (!countLoading && !listLoading) {
-      const boardData =
-        count &&
-        list?.fetchBoards?.map((i, idx) => ({
-          number: count?.fetchBoardsCount - page * 10 - idx,
-          writer: i.writer,
-          title: i.title,
-          id: i._id,
-          updatedAt: moment(i.updatedAt).format("YYYY-MM-DD"),
-        }));
+    if (!countLoading && !!count) {
+      setTotalCount(count?.fetchBoardsCount);
+
+      setLastPage(
+        count?.fetchBoardsCount % 10 === 0
+          ? Math.trunc(count?.fetchBoardsCount / 10)
+          : Math.trunc(count?.fetchBoardsCount / 10) + 1
+      );
+    }
+  }, [countLoading, count]);
+  useEffect(() => {
+    if (!!totalCount && !listLoading && !!list) {
+      const boardData = list.fetchBoards?.map((i, idx) => ({
+        number: totalCount - (currentPage - 1) * 10 - idx,
+        writer: i.writer,
+        title: i.title,
+        id: i._id,
+        updatedAt: moment(i.updatedAt).format("YYYY-MM-DD"),
+      }));
+      console.log(boardData, "boardData1");
       setBoardList(boardData);
     }
-  }, [countLoading, listLoading, list, count]);
+    console.log(!!totalCount);
+    console.log(!listLoading);
+    console.log(!!list);
+    console.log(!!totalCount && !listLoading && !!list);
+    console.log("boardData2");
+  }, [listLoading, countLoading, count, list, currentPage, totalCount]);
 
   const onGoDetail = (id: string) => {
     router.push(`/boards/${id}`);
@@ -50,9 +71,19 @@ export default function BoardList() {
   return (
     <>
       {!!boardList && (
-        <BoardListUI onGoDetail={onGoDetail} data={boardList && boardList} />
+        <BoardListUI
+          onGoDetail={onGoDetail}
+          data={boardList && boardList}
+          onGoNew={onGoNew}
+        />
       )}
-      <S.GoNewButton onClick={onGoNew}>게시물 등록하기</S.GoNewButton>
+      <div style={{ display: "inlne-block", width: "50%", margin: "0 auto" }}>
+        <PaginationComponents
+          setCurrentPage={setCurrentPage}
+          refetch={refetch}
+          lastPage={lastPage}
+        />
+      </div>
     </>
   );
 }

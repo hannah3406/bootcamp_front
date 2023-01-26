@@ -8,6 +8,7 @@ export const BoardListWrapper = styled.div`
   margin: 0 auto;
   margin-top: 40px;
   margin-bottom: 60px;
+  position: relative;
 `;
 
 export const Header = styled.div`
@@ -60,7 +61,9 @@ export const Body = styled.div`
 export const GoNewButton = styled.div`
   display: inline-block;
   padding: 14px 16px 14px 48px;
-  position: relative;
+  position: absolute;
+  right: 0;
+  bottom: -65px;
   border: 1px solid #f2f2f2;
   border-radius: 10px;
   cursor: pointer;
