@@ -1,3 +1,8 @@
+import {
+  ApolloQueryResult,
+  FetchMoreQueryOptions,
+  OperationVariables,
+} from "@apollo/client";
 import { Address } from "react-daum-postcode";
 import { IQuery } from "../commons/types/generated/types";
 
@@ -75,8 +80,11 @@ export interface IFetchBoardComment {
   createdAt: string;
 }
 export interface IBoardCommentListProps {
-  refetch: () => void;
+  refetch: (
+    variables?: Partial<OperationVariables>
+  ) => Promise<ApolloQueryResult<Pick<IQuery, "fetchBoardComments">>>;
   list: IFetchBoardComment[];
+  onLoadMore: () => void;
 }
 export interface IBoardCommentListUIProps {
   data: IFetchBoardComment;

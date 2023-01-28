@@ -9,7 +9,6 @@ import moment from "moment";
 import { useEffect, useState } from "react";
 import { IQuery } from "../../../../commons/types/generated/types";
 import { IBoardListData } from "../../../../types/Board.types";
-import * as S from "./BoardList.styles";
 import PaginationComponents from "../../../commons/Pagination";
 
 export default function BoardList() {
@@ -42,6 +41,7 @@ export default function BoardList() {
       );
     }
   }, [countLoading, count]);
+
   useEffect(() => {
     if (!!totalCount && !listLoading && !!list) {
       const boardData = list.fetchBoards?.map((i, idx) => ({
@@ -54,16 +54,12 @@ export default function BoardList() {
       console.log(boardData, "boardData1");
       setBoardList(boardData);
     }
-    console.log(!!totalCount);
-    console.log(!listLoading);
-    console.log(!!list);
-    console.log(!!totalCount && !listLoading && !!list);
-    console.log("boardData2");
   }, [listLoading, countLoading, count, list, currentPage, totalCount]);
 
   const onGoDetail = (id: string) => {
     router.push(`/boards/${id}`);
   };
+
   const onGoNew = () => {
     router.push(`/boards/new`);
   };

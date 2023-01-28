@@ -26,5 +26,6 @@ module.exports = {
     "import/no-absolute-path": "off",
     "@typescript-eslint/restrict-template-expressions": "off",
     "@typescript-eslint/prefer-optional-chain": "off",
+    "@typescript-eslint/restrict-plus-operands": "off",
   },
 };

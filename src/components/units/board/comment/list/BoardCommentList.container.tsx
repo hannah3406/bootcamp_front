@@ -11,9 +11,10 @@ import {
   IFetchBoardComment,
 } from "../../../../../types/Board.types";
 import { IMutation } from "../../../../../commons/types/generated/types";
+import InfiniteScroll from "react-infinite-scroller";
 
 export default function BoardCommentList(props: IBoardCommentListProps) {
-  const { list, refetch } = props;
+  const { list, refetch, onLoadMore } = props;
 
   const page = 0;
   const router = useRouter();
@@ -63,19 +64,26 @@ export default function BoardCommentList(props: IBoardCommentListProps) {
   }, [list]);
   return (
     <>
-      {!!list &&
-        list.map((i: IFetchBoardComment) => (
-          <BoardCommentListUI
-            key={i._id}
-            data={i}
-            onDeleteBoard={onDeleteBoard}
-            onChangeValue={onChangeValue}
-            passwordValue={passwordValue}
-            isEdit={isEdit === i._id}
-            refetch={refetch}
-            onClickEdit={onClickEdit}
-          />
-        ))}
+      <InfiniteScroll
+        pageStart={0}
+        loadMore={onLoadMore}
+        hasMore={true}
+        loader={<div className="loader" key={0}></div>}
+      >
+        {!!list &&
+          list.map((i: IFetchBoardComment) => (
+            <BoardCommentListUI
+              key={i._id}
+              data={i}
+              onDeleteBoard={onDeleteBoard}
+              onChangeValue={onChangeValue}
+              passwordValue={passwordValue}
+              isEdit={isEdit === i._id}
+              refetch={refetch}
+              onClickEdit={onClickEdit}
+            />
+          ))}
+      </InfiniteScroll>
     </>
   );
 }

@@ -15,21 +15,47 @@ const Wrapper = styled.div`
 export default function Detail() {
   const page = 0;
   const router = useRouter();
-  const { data: list, refetch } = useQuery<Pick<IQuery, "fetchBoardComments">>(
-    FETCH_BOARD_COMMENTS,
-    {
+  const {
+    data: list,
+    refetch,
+    fetchMore,
+  } = useQuery<Pick<IQuery, "fetchBoardComments">>(FETCH_BOARD_COMMENTS, {
+    variables: {
+      page: page + 1,
+      id: router.query.id,
+    },
+  });
+
+  const onLoadMore = () => {
+    if (list?.fetchBoardComments === undefined) return;
+    fetchMore({
       variables: {
-        page: page + 1,
+        page: Math.trunc(list?.fetchBoardComments.length / 10) + 1,
         id: router.query.id,
       },
-    }
-  );
+      updateQuery: (prev, { fetchMoreResult }) => {
+        if (!fetchMoreResult) return prev;
+        if (!Number.isInteger(prev.fetchBoardComments.length / 10)) return prev;
+
+        return Object.assign({}, prev, {
+          fetchBoardComments: [
+            ...prev.fetchBoardComments,
+            ...fetchMoreResult.fetchBoardComments,
+          ],
+        });
+      },
+    });
+  };
 
   return (
     <Wrapper>
       <BoardDetail />
       <BoardCommentWrite refetch={refetch} isEdit={false} />
-      <BoardCommentList list={list?.fetchBoardComments} refetch={refetch} />
+      <BoardCommentList
+        list={list?.fetchBoardComments}
+        refetch={refetch}
+        onLoadMore={onLoadMore}
+      />
     </Wrapper>
   );
 }
