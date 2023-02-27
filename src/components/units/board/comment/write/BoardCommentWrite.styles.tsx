@@ -4,14 +4,14 @@ interface IBoardCommentWriteUIProps {
   isEdit: boolean;
 }
 export const Wrapper = styled.div`
-box-sizing: border-box;
+  box-sizing: border-box;
   width: 1200px;
   padding: 20px 0;
   margin-top:${(props: IBoardCommentWriteUIProps) =>
     props.isEdit ? "0px;" : "87px;"}
   border-top:${(props: IBoardCommentWriteUIProps) =>
     props.isEdit ? "0px;" : "1px solid #bdbdbd;"}
-  .ant-form-item{
+  .ant-form-item {
     margin-bottom:0px !important;
     vertical-align:unset !important;
   }

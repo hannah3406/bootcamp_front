@@ -55,6 +55,12 @@ export const IconWrap = styled.div`
   justify-content: flex-start;
   align-items: center;
 `;
+export const Title = styled.h2`
+  margin-bottom: 20px;
+`;
+export const ImgWrap = styled.div`
+  margin: 20px auto;
+`;
 
 export const IconShare = styled.div`
   width: 32px;
@@ -82,6 +88,13 @@ export const Middle = styled.div`
 `;
 export const ImgWrapper = styled.div`
   margin: 40px 0;
+  text-align: center;
+  > div {
+    display: inline-block;
+  }
+  > img {
+    max-width: 500px;
+  }
 `;
 export const ContentsWrapper = styled.div`
   font-family: "Noto Sans CJK KR";

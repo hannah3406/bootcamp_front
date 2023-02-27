@@ -62,6 +62,13 @@ export const DISLIKE_BOARD = gql`
     dislikeBoard(boardId: $boardId)
   }
 `;
+export const UPLOAD_FILE = gql`
+  mutation uploadFile($file: Upload!) {
+    uploadFile(file: $file) {
+      url
+    }
+  }
+`;
 
 // fetch
 export const FETCH_BOARD = gql`
@@ -69,9 +76,11 @@ export const FETCH_BOARD = gql`
     fetchBoard(boardId: $id) {
       writer
       title
+      images
       contents
       updatedAt
       likeCount
+      youtubeUrl
       dislikeCount
       boardAddress {
         zipcode

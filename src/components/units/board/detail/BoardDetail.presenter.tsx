@@ -3,6 +3,7 @@ import moment from "moment";
 import Button from "../../../commons/Button";
 import { IBoardDetailUIProps } from "../../../../types/Board.types";
 import { Tooltip } from "antd";
+import ReactPlayer from "react-player";
 
 export default function BoardDetailUI(props: IBoardDetailUIProps) {
   const {
@@ -41,10 +42,26 @@ export default function BoardDetailUI(props: IBoardDetailUIProps) {
           </S.IconWrap>
         </S.Top>
         <S.Middle>
-          <h2>{data?.fetchBoard?.title}</h2>
+          <S.Title>{data?.fetchBoard?.title}</S.Title>
+          {data?.fetchBoard?.images &&
+            data?.fetchBoard?.images.map((img) => (
+              <S.ImgWrapper key={img}>
+                <img src={"https://storage.googleapis.com/" + img} />
+              </S.ImgWrapper>
+            ))}
           <div
             dangerouslySetInnerHTML={{ __html: data?.fetchBoard?.contents }}
           />
+          {data?.fetchBoard?.youtubeUrl && (
+            <S.ImgWrapper>
+              <ReactPlayer
+                url={data?.fetchBoard?.youtubeUrl}
+                muted={false}
+                playing={true}
+                loop={true}
+              />
+            </S.ImgWrapper>
+          )}
           <S.LikeWrapper>
             <S.LikeIcon onClick={onLikeBoard}>
               {data?.fetchBoard?.likeCount}

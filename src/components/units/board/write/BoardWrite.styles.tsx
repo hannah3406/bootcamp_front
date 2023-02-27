@@ -103,38 +103,37 @@ export const Textarea = styled.textarea`
   }
 `;
 export const ImgUploader = styled.div`
-  box-sizing: border-box;
   width: 78px;
   height: 78px;
-  background: #bdbdbd;
   display: inline-block;
+  margin: 30px 0;
   margin-right: 24px;
-  margin-bottom: 30px;
-  text-align: center;
-  > button {
-    background: none !important;
-    font-family: "Noto Sans CJK KR";
-    font-style: normal;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 18px;
-    color: #4f4f4f;
-    padding: 0;
-    margin: 0;
-    display: inline-block;
+
+  #file {
+    display: none;
+  }
+  > img {
     width: 100%;
     height: 100%;
-    padding: 42px 18px 18px 18px;
+  }
+  .btn-upload {
+    background: #bdbdbd;
+    display: inline-block;
+    box-sizing: border-box;
     position: relative;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+
     &:after {
       content: "";
       width: 14px;
       height: 2px;
       background: #4f4f4f;
       position: absolute;
-      top: 29px;
+      top: 50%;
       left: 50%;
-      transform: translateX(-50%);
+      transform: translate(-50%, -50%);
     }
     &:before {
       content: "";
@@ -142,9 +141,9 @@ export const ImgUploader = styled.div`
       width: 2px;
       background: #4f4f4f;
       position: absolute;
-      top: 23px;
+      top: 50%;
       left: 50%;
-      transform: translateX(-50%);
+      transform: translate(-50%, -50%);
     }
   }
 `;

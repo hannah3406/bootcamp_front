@@ -16,6 +16,7 @@ export interface IBoardListData {
 }
 // 게시글 쓰기 데이터
 export interface IBoardWriteData {
+  images: string[];
   youtubeUrl?: string;
   addressDetail?: string;
   address?: string;
@@ -47,6 +48,7 @@ export interface IBoardWriteProps {
   editData?: Pick<IQuery, "fetchBoard">;
 }
 export interface IBoardWriteMyVariables {
+  images?: string[];
   youtubeUrl?: string;
   addressDetail?: string;
   address?: string;
