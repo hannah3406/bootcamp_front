@@ -84,13 +84,13 @@ export default function BoardWrite(props: IBoardWriteProps) {
       if (data.contents !== editData?.fetchBoard?.contents)
         myVariables.contents = data.contents;
       if (searchAddress.zipcode !== editData?.fetchBoard?.boardAddress?.zipcode)
-        myVariables.zipcode = data.zipcode;
+        myVariables.boardAddress.zipcode = data.zipcode;
       if (searchAddress.address !== editData?.fetchBoard?.boardAddress?.address)
-        myVariables.address = data.address;
+        myVariables.boardAddress.address = data.address;
       if (
         data.addressDetail !== editData?.fetchBoard?.boardAddress?.addressDetail
       )
-        myVariables.addressDetail = data.addressDetail;
+        myVariables.boardAddress.addressDetail = data.addressDetail;
       myVariables.images = data.images;
 
       if (data.youtubeUrl !== editData?.fetchBoard?.youtubeUrl)
@@ -101,11 +101,7 @@ export default function BoardWrite(props: IBoardWriteProps) {
           updateBoardInput: {
             title: myVariables.title,
             contents: myVariables.contents,
-            boardAddress: {
-              zipcode: myVariables.zipcode,
-              address: myVariables.address,
-              addressDetail: myVariables.addressDetail,
-            },
+            boardAddress: myVariables.boardAddress,
             images: myVariables.images,
             youtubeUrl: myVariables.youtubeUrl,
           },

@@ -50,11 +50,14 @@ export interface IBoardWriteProps {
 export interface IBoardWriteMyVariables {
   images?: string[];
   youtubeUrl?: string;
-  addressDetail?: string;
-  address?: string;
-  zipcode?: string;
+
   title?: string;
   contents?: string;
+  boardAddress?: {
+    addressDetail?: string;
+    address?: string;
+    zipcode?: string;
+  };
 }
 export interface IBoardWriteUIProps {
   onSubmit: (data: IBoardWriteData) => Promise<JSX.Element>;
