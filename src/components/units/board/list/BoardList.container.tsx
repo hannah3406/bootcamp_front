@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { IQuery } from "../../../../commons/types/generated/types";
 import { IBoardListData } from "../../../../types/Board.types";
 import PaginationComponents from "../../../commons/Pagination";
+import SearchBar from "../../../commons/SearchBar";
 
 export default function BoardList() {
   const router = useRouter();
@@ -21,14 +22,17 @@ export default function BoardList() {
   const {
     data: list,
     loading: listLoading,
-    refetch,
+    refetch: refetchSearchList,
   } = useQuery<Pick<IQuery, "fetchBoards">>(FETCH_BOARDS, {
     variables: {
       page: currentPage,
     },
   });
-  const { data: count, loading: countLoading } =
-    useQuery<Pick<IQuery, "fetchBoardsCount">>(FETCH_BOARDS_COUNT);
+  const {
+    data: count,
+    loading: countLoading,
+    refetch: refetchSearchCount,
+  } = useQuery<Pick<IQuery, "fetchBoardsCount">>(FETCH_BOARDS_COUNT);
 
   useEffect(() => {
     if (!countLoading && !!count) {
@@ -51,7 +55,6 @@ export default function BoardList() {
         id: i._id,
         updatedAt: moment(i.updatedAt).format("YYYY-MM-DD"),
       }));
-      console.log(boardData, "boardData1");
       setBoardList(boardData);
     }
   }, [listLoading, countLoading, count, list, currentPage, totalCount]);
@@ -66,6 +69,12 @@ export default function BoardList() {
 
   return (
     <>
+      <div style={{ display: "inlne-block", width: "70%", margin: "0 auto" }}>
+        <SearchBar
+          refetchSearchList={refetchSearchList}
+          refetchSearchCount={refetchSearchCount}
+        />
+      </div>
       {!!boardList && (
         <BoardListUI
           onGoDetail={onGoDetail}
@@ -76,7 +85,7 @@ export default function BoardList() {
       <div style={{ display: "inlne-block", width: "50%", margin: "0 auto" }}>
         <PaginationComponents
           setCurrentPage={setCurrentPage}
-          refetch={refetch}
+          refetch={refetchSearchList}
           lastPage={lastPage}
         />
       </div>

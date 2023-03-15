@@ -2,11 +2,7 @@
 import { useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import BoardWriteUI from "./BoardWrite.persenter";
-import {
-  CREATE_BOARD,
-  UPDATE_BOARD,
-  UPLOAD_FILE,
-} from "../../../../queries/Board.queries";
+import { CREATE_BOARD, UPDATE_BOARD } from "../../../../queries/Board.queries";
 import {
   IBoardWriteData,
   IBoardWriteMyVariables,
