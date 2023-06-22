@@ -9,18 +9,28 @@ interface IPaginationComponentsProps {
     variables?: Partial<OperationVariables>
   ) => Promise<ApolloQueryResult<Pick<IQuery, "fetchBoards">>>;
   lastPage: number;
+  currentPage: number;
+  search: string;
 }
-
+interface Tquery {
+  page?: number;
+  search?: string;
+}
 export default function PaginationComponents(
   props: IPaginationComponentsProps
 ) {
-  const { setCurrentPage, refetch, lastPage } = props;
+  const { setCurrentPage, refetch, lastPage, search, currentPage } = props;
   const handlePage = (e: React.ChangeEvent<HTMLButtonElement>) => {
-    setCurrentPage(Number(e.target.outerText));
-    refetch({ page: Number(e.target.outerText) });
+    const query: Tquery = {
+      page: Number(e.target.outerText),
+    };
+    if (search) query.search = search;
+    setCurrentPage(query.page);
+    refetch(query);
   };
   return (
     <Pagination
+      page={currentPage}
       count={lastPage}
       defaultPage={1}
       boundaryCount={2}

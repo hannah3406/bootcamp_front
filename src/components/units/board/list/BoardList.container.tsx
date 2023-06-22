@@ -18,6 +18,7 @@ export default function BoardList() {
   const [lastPage, setLastPage] = useState<number>(0);
   const [totalCount, setTotalCount] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(0);
+  const [search, setSearch] = useState<string | undefined>(undefined);
 
   const {
     data: list,
@@ -26,6 +27,7 @@ export default function BoardList() {
   } = useQuery<Pick<IQuery, "fetchBoards">>(FETCH_BOARDS, {
     variables: {
       page: currentPage,
+      search,
     },
   });
   const {
@@ -37,7 +39,6 @@ export default function BoardList() {
   useEffect(() => {
     if (!countLoading && !!count) {
       setTotalCount(count?.fetchBoardsCount);
-
       setLastPage(
         count?.fetchBoardsCount % 10 === 0
           ? Math.trunc(count?.fetchBoardsCount / 10)
@@ -66,14 +67,17 @@ export default function BoardList() {
   const onGoNew = () => {
     router.push(`/boards/new`);
   };
+  const onSearch = (search: string) => {
+    setSearch(search);
+    setCurrentPage(1);
+    refetchSearchList({ search, page: 1 });
+    refetchSearchCount({ search });
+  };
 
   return (
     <>
       <div style={{ display: "inlne-block", width: "70%", margin: "0 auto" }}>
-        <SearchBar
-          refetchSearchList={refetchSearchList}
-          refetchSearchCount={refetchSearchCount}
-        />
+        <SearchBar onSearch={onSearch} />
       </div>
       {!!boardList && (
         <BoardListUI
@@ -84,9 +88,11 @@ export default function BoardList() {
       )}
       <div style={{ display: "inlne-block", width: "50%", margin: "0 auto" }}>
         <PaginationComponents
+          currentPage={currentPage}
           setCurrentPage={setCurrentPage}
           refetch={refetchSearchList}
           lastPage={lastPage}
+          search={search}
         />
       </div>
     </>

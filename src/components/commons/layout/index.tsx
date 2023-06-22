@@ -5,7 +5,7 @@ import Banner from "./banner";
 import Header from "./header";
 import Navigation from "./navigation";
 
-const HIDDEN_HEADERS = ["/"];
+const HIDDEN_HEADERS = ["/login", "/join"];
 
 interface ILayoutProps {
   children: JSX.Element;
@@ -17,8 +17,12 @@ export default function Layout(props: ILayoutProps) {
   return (
     <>
       <Header />
-      <Banner />
-      <Navigation />
+      {!isHiddenHeader && (
+        <>
+          <Banner />
+          <Navigation />
+        </>
+      )}
       <Contents>{props.children}</Contents>
     </>
   );

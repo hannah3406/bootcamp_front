@@ -27,5 +27,6 @@ module.exports = {
     "@typescript-eslint/restrict-template-expressions": "off",
     "@typescript-eslint/prefer-optional-chain": "off",
     "@typescript-eslint/restrict-plus-operands": "off",
+    "react/display-name": "off",
   },
 };

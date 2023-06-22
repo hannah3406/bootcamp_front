@@ -4,20 +4,11 @@ import { IQuery } from "../../commons/types/generated/types";
 
 const { Search } = Input;
 interface ISearchBarProps {
-  refetchSearchList: (
-    variables?: Partial<OperationVariables>
-  ) => Promise<ApolloQueryResult<Pick<IQuery, "fetchBoards">>>;
-  refetchSearchCount: (
-    variables?: Partial<OperationVariables>
-  ) => Promise<ApolloQueryResult<Pick<IQuery, "fetchBoardsCount">>>;
+  onSearch: (search: string) => void;
 }
 
 const SearchBar = (props: ISearchBarProps) => {
-  const { refetchSearchList, refetchSearchCount } = props;
-  const onSearch = (search: string) => {
-    refetchSearchList({ search, page: 1 });
-    refetchSearchCount({ search });
-  };
+  const { onSearch } = props;
   return (
     <Search
       placeholder="제목을 입력해주세요."

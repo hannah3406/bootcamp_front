@@ -5,3 +5,8 @@ export const imgList = atom<File[]>({
   key: "boards/fileList",
   default: [],
 });
+
+export const accessToken = atom<string>({
+  key: "accessTokenState",
+  default: "",
+});

@@ -1,13 +1,19 @@
 import styled from "@emotion/styled";
+import { useRouter } from "next/router";
 import LOGO from "/public/icon/logo.png";
 
 export default function Header() {
+  const router = useRouter();
   return (
     <Wrapper>
       <Logo className="btn" />
       <RightArea>
-        <Login className="btn">로그인</Login>
-        <Join className="btn">회원가입</Join>
+        <Login className="btn" onClick={() => router.push(`/login`)}>
+          로그인
+        </Login>
+        <Join className="btn" onClick={() => router.push(`/join`)}>
+          회원가입
+        </Join>
       </RightArea>
     </Wrapper>
   );
